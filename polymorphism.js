@@ -28,3 +28,42 @@ Square.prototype.duplicate = function() {
 const shapes = [new Circle(), new Square(), new Shape()];
 
 for (let shape of shapes) shape.duplicate();
+
+//MIXINS - COMBINATION
+function mixin(target, ...sources) {
+  Object.assign(target, ...sources);
+}
+
+const canEat = {
+  eat: function() {
+    this.hunger--;
+    console.log("eating");
+  }
+};
+
+const canWalk = {
+  walk: function() {
+    console.log("walk");
+  }
+};
+
+const canSwin = {
+  swin: function() {
+    console.log("swim");
+  }
+};
+
+function Person() {}
+
+//Object.assign(Person.prototype, canEat, canWalk);
+
+mixin(Person.prototype, canEat, canWalk);
+const person = new Person();
+console.log(person);
+
+function Goldfish() {}
+
+mixin(Goldfish.prototype, canEat, canSwin);
+
+const goldfish = new Goldfish();
+console.log(goldfish);
